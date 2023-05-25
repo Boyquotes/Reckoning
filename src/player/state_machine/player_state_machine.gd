@@ -228,9 +228,7 @@ func _check_double_jump_state():
 	
 func _check_wall_jump_state():
 	var new_state = WALL_JUMP
-	if abs(_permanent_state.velocity.x) <= 1:
-		new_state = FALL
-	elif _permanent_state.velocity.y >= 0:
+	if abs(_permanent_state.velocity.x) <= 1 or _permanent_state.velocity.y >= 0:
 		new_state = FALL
 	elif Input.is_action_just_pressed("dash") and _dashs != 0:
 		new_state = DASH
