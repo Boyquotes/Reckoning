@@ -60,6 +60,4 @@ text = "Dashs: "
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(720, 43)
 
-[connection signal="state_changed" from="Player/PlayerStateMachine" to="." method="_on_player_state_machine_state_changed"]
-
 [editable path="Player"]

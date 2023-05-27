@@ -1,14 +1,15 @@
 class_name PlayerStateMachine
 extends Node2D
 
-signal state_changed(new_signal: String)
-
 const GRAVITY = 400
 const GRAVITY_MAX = 500
 const MOVEMENT_SPEED = 150
+const MOVEMENT_LERP_WEIGHT = 0.2
 const JUMP_FORCE = 150
 const WALL_JUMP_FORCE = 200
+const WALL_JUMP_LERP_WEIGHT = 0.05
 const DASH_FORCE = 400
+const DASH_LERP_WEIGHT = 0.1
 
 var _current_direction: int = 1
 
@@ -28,15 +29,6 @@ enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH}
 var _current_state = IDLE
 var _enter_state = true
 
-var states = {
-	0: "idle",
-	1: "walk",
-	2: "fall",
-	3: "jump",
-	4: "double jump",
-	5: "wall jump",
-	6: "dash"
-}
 
 func setup(_permanent_state_arg: CharacterBody2D, 
 	_raycast_right_arg: RayCast2D,
@@ -71,7 +63,7 @@ func _idle_state(_delta):
 		_reset_attributes()
 	
 	_apply_gravity(_delta)
-	_apply_lerp_x()
+	_apply_lerp_x(MOVEMENT_LERP_WEIGHT)
 	_apply_move_and_slide()
 	
 	_set_state(_check_idle_state())
@@ -82,7 +74,7 @@ func _walk_state(_delta):
 		
 	_apply_gravity(_delta)
 	_apply_movement()
-	_apply_lerp_x()
+	_apply_lerp_x(MOVEMENT_LERP_WEIGHT)
 	_apply_move_and_slide()
 	
 	_set_state(_check_walk_state())
@@ -90,7 +82,7 @@ func _walk_state(_delta):
 func _fall_state(_delta):
 	_apply_gravity(_delta)
 	_apply_movement()
-	_apply_lerp_x()
+	_apply_lerp_x(MOVEMENT_LERP_WEIGHT)
 	_apply_move_and_slide()
 	
 	_set_state(_check_fall_state())
@@ -101,7 +93,7 @@ func _jump_state(_delta):
 		
 	_apply_gravity(_delta)
 	_apply_movement()
-	_apply_lerp_x()
+	_apply_lerp_x(MOVEMENT_LERP_WEIGHT)
 	_apply_move_and_slide()
 	
 	_set_state(_check_jump_state())
@@ -113,7 +105,7 @@ func _double_jump_state(_delta):
 		
 	_apply_gravity(_delta)
 	_apply_movement()
-	_apply_lerp_x()
+	_apply_lerp_x(MOVEMENT_LERP_WEIGHT)
 	_apply_move_and_slide()
 	
 	_set_state(_check_double_jump_state())
@@ -129,7 +121,7 @@ func _wall_jump_state(_delta):
 			_current_direction = 1
 	
 	_apply_gravity(_delta)
-	_permanent_state.velocity.x = lerp(_permanent_state.velocity.x, 0.0, 0.05)
+	_apply_lerp_x(WALL_JUMP_LERP_WEIGHT)
 	_apply_move_and_slide()
 	
 	_set_state(_check_wall_jump_state())
@@ -158,7 +150,8 @@ func _dash_state(_delta):
 		_pull_dash()
 		
 	_apply_move_and_slide()
-	_permanent_state.velocity = lerp(_permanent_state.velocity, Vector2.ZERO, 0.1)
+	_apply_lerp_x(DASH_LERP_WEIGHT)
+	_apply_lerp_y(DASH_LERP_WEIGHT)
 	_set_state(_check_dash_state())
 	
 # check functions
@@ -253,15 +246,16 @@ func _apply_movement():
 		_permanent_state.velocity.x = -MOVEMENT_SPEED
 		_current_direction = -1
 
-func _apply_lerp_x():
-	_permanent_state.velocity.x = lerp(_permanent_state.velocity.x, 0.0, 0.2)
+func _apply_lerp_x(weight: float):
+	_permanent_state.velocity.x = lerp(_permanent_state.velocity.x, 0.0, weight)
+	
+func _apply_lerp_y(weight: float):
+	_permanent_state.velocity.y = lerp(_permanent_state.velocity.y, 0.0, weight)
 	
 func _apply_move_and_slide():
 	_permanent_state.move_and_slide()
 	
 func _set_state(new_state):
-	if new_state != _current_state:
-		emit_signal("state_changed", states[new_state])
 	_enter_state = new_state != _current_state
 	_current_state = new_state
 
