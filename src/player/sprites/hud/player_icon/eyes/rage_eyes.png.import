@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx34yeaiwle8j"
-path="res://.godot/imported/player.png-f5c9faf6c2109052f2304528cf1d602f.ctex"
+uid="uid://cllis101bn6t8"
+path="res://.godot/imported/rage_eyes.png-dd19359d0ecbe230890bf3d5d5b37dd8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/sprites/player.png"
-dest_files=["res://.godot/imported/player.png-f5c9faf6c2109052f2304528cf1d602f.ctex"]
+source_file="res://src/player/sprites/hud/player_icon/eyes/rage_eyes.png"
+dest_files=["res://.godot/imported/rage_eyes.png-dd19359d0ecbe230890bf3d5d5b37dd8.ctex"]
 
 [params]
 

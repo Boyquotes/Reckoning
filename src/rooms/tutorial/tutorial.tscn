@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf5qqy8rnvth3"]
+[gd_scene load_steps=7 format=3 uid="uid://bf5qqy8rnvth3"]
 
 [ext_resource type="Script" path="res://src/rooms/tutorial/tutorial.gd" id="1_emjdr"]
 [ext_resource type="PackedScene" uid="uid://ym77h0p4xkan" path="res://src/player/player.tscn" id="1_hou41"]
 [ext_resource type="Texture2D" uid="uid://c0x53rkef23nm" path="res://src/rooms/tutorial/sprites/floor.png" id="2_jtpig"]
+[ext_resource type="PackedScene" uid="uid://cijhlnb7vmcbb" path="res://src/player/hud/player_hud.tscn" id="4_qwuiv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8r5gd"]
 resource_name = "floor"
@@ -38,24 +39,31 @@ layer_0/tile_data = PackedInt32Array(-196597, 0, 0, -196596, 0, 0, -196595, 0, 0
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="LabelCurrentState" type="Label" parent="HUD"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 179.0
+offset_top = 1.0
+offset_right = 224.0
+offset_bottom = 24.0
 theme_override_font_sizes/font_size = 7
 text = "Current state"
 
 [node name="LabelDoubleJumps" type="Label" parent="HUD"]
-offset_top = 10.0
-offset_right = 45.0
-offset_bottom = 33.0
+offset_left = 179.0
+offset_top = 11.0
+offset_right = 224.0
+offset_bottom = 34.0
 theme_override_font_sizes/font_size = 7
 text = "Jumps: "
 
 [node name="LabelDashs" type="Label" parent="HUD"]
-offset_top = 21.0
-offset_right = 45.0
-offset_bottom = 44.0
+offset_left = 179.0
+offset_top = 22.0
+offset_right = 224.0
+offset_bottom = 45.0
 theme_override_font_sizes/font_size = 7
 text = "Dashs: "
+
+[node name="PlayerHUD" parent="HUD" instance=ExtResource("4_qwuiv")]
+position = Vector2(51, 13)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(720, 43)

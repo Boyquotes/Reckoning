@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3 uid="uid://cijhlnb7vmcbb"]
+
+[ext_resource type="Texture2D" uid="uid://b77adg3u4jrpp" path="res://src/player/sprites/hud/player_icon/player_icon.png" id="1_obets"]
+[ext_resource type="Script" path="res://src/player/hud/player_hud.gd" id="1_sd2fw"]
+[ext_resource type="Texture2D" uid="uid://dummajn5kk0jg" path="res://src/player/sprites/hud/player_icon/eyes/danger_eyes.png" id="2_j0167"]
+[ext_resource type="Resource" uid="uid://xmqaq36tm54p" path="res://src/player/stats/player_stats.tres" id="2_rkjs2"]
+[ext_resource type="Texture2D" uid="uid://cllis101bn6t8" path="res://src/player/sprites/hud/player_icon/eyes/rage_eyes.png" id="3_eo7c7"]
+[ext_resource type="Texture2D" uid="uid://dni6od4o8kosd" path="res://src/player/sprites/hud/life_bar/life_bar.png" id="5_fkfbh"]
+[ext_resource type="Texture2D" uid="uid://cw1dxf8wtu4lw" path="res://src/player/sprites/hud/life_bar/eyes/danger_eyes.png" id="6_oygy3"]
+[ext_resource type="Texture2D" uid="uid://c35ylmeh3ne1c" path="res://src/player/sprites/hud/life_bar/eyes/rage_eyes.png" id="7_ffn4r"]
+[ext_resource type="Texture2D" uid="uid://dyxr8htbblgge" path="res://src/player/sprites/hud/life_bar/eyes/sad_eyes.png" id="8_ly1ir"]
+[ext_resource type="Texture2D" uid="uid://cv22dhkaaxo82" path="res://src/player/sprites/hud/player_icon/eyes/sad_eyes.png" id="10_tvwd2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p0omx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j0167")
+}],
+"loop": false,
+"name": &"danger_eyes",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_eo7c7")
+}],
+"loop": false,
+"name": &"rage_eyes",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_tvwd2")
+}],
+"loop": false,
+"name": &"sad_eyes",
+"speed": 0.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi7y2"]
+bg_color = Color(0.321569, 0.290196, 0.388235, 1)
+skew = Vector2(1, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjv7n"]
+bg_color = Color(0.960784, 0.309804, 0.309804, 1)
+skew = Vector2(1, 0)
+anti_aliasing = false
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yiqrk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_oygy3")
+}],
+"loop": false,
+"name": &"danger_eyes",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ffn4r")
+}],
+"loop": false,
+"name": &"rage_eyes",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ly1ir")
+}],
+"loop": false,
+"name": &"sad_eyes",
+"speed": 0.0
+}]
+
+[node name="PlayerHUD" type="Node2D"]
+script = ExtResource("1_sd2fw")
+_player_stats = ExtResource("2_rkjs2")
+
+[node name="LifeBarContainer" type="Node2D" parent="."]
+
+[node name="PlayerIcon" type="Node2D" parent="LifeBarContainer"]
+position = Vector2(-35, 0)
+
+[node name="Icons" type="Sprite2D" parent="LifeBarContainer/PlayerIcon"]
+texture = ExtResource("1_obets")
+
+[node name="Eyes" type="AnimatedSprite2D" parent="LifeBarContainer/PlayerIcon"]
+position = Vector2(2, 0.5)
+sprite_frames = SubResource("SpriteFrames_p0omx")
+animation = &"rage_eyes"
+
+[node name="LifeBar" type="Node2D" parent="LifeBarContainer"]
+position = Vector2(8, -3)
+
+[node name="ProgressBar" type="ProgressBar" parent="LifeBarContainer/LifeBar"]
+offset_left = -32.0
+offset_top = 1.0
+offset_right = 33.0
+offset_bottom = 5.0
+pivot_offset = Vector2(52, 6)
+theme_override_styles/background = SubResource("StyleBoxFlat_gi7y2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fjv7n")
+show_percentage = false
+
+[node name="LifeBarOutline" type="Sprite2D" parent="LifeBarContainer/LifeBar"]
+texture = ExtResource("5_fkfbh")
+
+[node name="SkullEyes" type="AnimatedSprite2D" parent="LifeBarContainer/LifeBar"]
+position = Vector2(-27.5, -1.5)
+sprite_frames = SubResource("SpriteFrames_yiqrk")
+animation = &"rage_eyes"
