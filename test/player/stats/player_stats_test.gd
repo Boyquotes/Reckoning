@@ -11,7 +11,7 @@ func test_reset() -> void:
 	# remove this line and complete your test
 	var s = load(__source).new()
 	s.reset()
-	assert_int(s._current_health, s.MAX_HEALTH)
+	assert_int(s._current_health).is_equal(s.MAX_HEALTH)
 
 func test_take_damage() -> void:
 	var s = load(__source).new()
