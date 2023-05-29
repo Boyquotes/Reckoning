@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal death
+
 @export var _stats: Resource
 
 @onready var _machine_state = $PlayerStateMachine
@@ -17,7 +19,7 @@ func _ready():
 # esse método deve ser chamado sempre que for iniciar o player
 # para ter certeza que dá tudo certo
 func reset():
-	pass
+	_stats.reset()
 	
 # aqui deve ser setado a vida que o player deve iniciar
 # pois a room irá carregar os dados anteriores
@@ -35,4 +37,5 @@ func _on_hurt_box_collided(damage, collider):
 	
 # lembrar de lidar com multiplos sinais de morte do player
 func _player_death():
-	print("morri :)")
+	_machine_state.player_died()
+	emit_signal("death")

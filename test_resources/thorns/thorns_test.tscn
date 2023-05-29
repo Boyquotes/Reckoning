@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2wqiyaowlpw"]
+
+[ext_resource type="Texture2D" uid="uid://cyqmltpxwu5f1" path="res://test_resources/thorns/sprites/thorn.png" id="1_moidf"]
+[ext_resource type="PackedScene" uid="uid://kl7wub0ymnuk" path="res://src/resources/hurt_hit_boxes/hit_box/hit_box.tscn" id="2_fnxmg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrcc0"]
+size = Vector2(16, 16)
+
+[node name="ThornsTest" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_moidf")
+
+[node name="HitBox" parent="." instance=ExtResource("2_fnxmg")]
+collision_mask = 1
+_damage = 1000.0
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("RectangleShape2D_lrcc0")
+
+[editable path="HitBox"]

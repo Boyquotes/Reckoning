@@ -6,6 +6,8 @@ extends Node2D
 @onready var label_dahs = $HUD/LabelDashs
 @onready var machine_state = $Player/PlayerStateMachine
 
+@onready var spawn1 = $Spawns/Spawn1
+
 var states = {
 	0: "idle",
 	1: "walk",
@@ -19,8 +21,8 @@ var states = {
 }
 
 func _ready():
-	player.set_health(100)
-	player.start()
+	player.connect("death", _player_death)
+	_reset_player()
 
 func _process(delta):
 	label_current_state.text = "Current State: " + states[machine_state._current_state]
@@ -29,3 +31,14 @@ func _process(delta):
 
 func _on_player_state_machine_state_changed(new_signal: String):
 	label_current_state.text = "Current state: " + new_signal
+
+func _player_death():
+	await get_tree().create_timer(1).timeout
+	_reset_player()
+
+
+func _reset_player():
+	player.global_position = spawn1.global_position
+	player.reset()
+	player.set_health(100)
+	player.start()

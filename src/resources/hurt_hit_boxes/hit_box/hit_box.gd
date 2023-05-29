@@ -2,7 +2,7 @@ extends Area2D
 
 signal collided(collider: Node2D)
 
-var _damage: float
+@export var _damage: float
 var _father: Node2D
 
 func setup(damage: float, father: Node2D):

@@ -25,8 +25,8 @@ var _raycast_right: RayCast2D
 var _raycast_left: RayCast2D
 
 
-enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH}
-var _current_state = IDLE
+enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH, STOPPED, DEATH}
+var _current_state = STOPPED
 var _enter_state = true
 
 
@@ -55,8 +55,27 @@ func _physics_process(delta):
 			_wall_jump_state(delta)
 		DASH:
 			_dash_state(delta)
+		STOPPED:
+			_stopped_state()
+		DEATH:
+			pass
 	
+# api
+func start():
+	_set_state(IDLE)
+	
+func reset():
+	_set_state(STOPPED)
+	
+func player_died():
+	_set_state(DEATH)
+
 # state functions
+func _stopped_state():
+	# nesse estado deve ser resetado tudo para zero
+	# só sai desse estado quando a função start é chamada por fora
+	_permanent_state.velocity = Vector2.ZERO
+
 func _idle_state(_delta):
 	if _enter_state:
 		_reset_attributes()
@@ -152,6 +171,9 @@ func _dash_state(_delta):
 	_apply_lerp_x(DASH_LERP_WEIGHT)
 	_apply_lerp_y(DASH_LERP_WEIGHT)
 	_set_state(_check_dash_state())
+	
+func _dead_state():
+	_permanent_state.velocity = Vector2.ZERO
 	
 	
 # check functions
