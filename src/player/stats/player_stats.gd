@@ -2,6 +2,7 @@ extends Resource
 class_name PlayerStats
 
 signal health_changed(new_health)
+signal death
 
 const MAX_HEALTH: int = 100
 var _current_health: int
@@ -24,3 +25,5 @@ func get_health():
 func set_health(amount):
 	_current_health = amount
 	emit_signal("health_changed", _current_health)
+	if _current_health == 0:
+		emit_signal("death")

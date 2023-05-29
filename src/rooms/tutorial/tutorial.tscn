@@ -69,3 +69,4 @@ position = Vector2(51, 13)
 position = Vector2(720, 43)
 
 [editable path="Player"]
+[editable path="Player/HurtBox"]

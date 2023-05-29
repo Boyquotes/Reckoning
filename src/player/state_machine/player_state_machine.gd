@@ -56,7 +56,6 @@ func _physics_process(delta):
 		DASH:
 			_dash_state(delta)
 	
-	
 # state functions
 func _idle_state(_delta):
 	if _enter_state:
@@ -153,6 +152,7 @@ func _dash_state(_delta):
 	_apply_lerp_x(DASH_LERP_WEIGHT)
 	_apply_lerp_y(DASH_LERP_WEIGHT)
 	_set_state(_check_dash_state())
+	
 	
 # check functions
 func _check_idle_state():
@@ -265,3 +265,5 @@ func _reset_attributes():
 
 func _pull_dash():
 	_dashs = max(0, _dashs - 1)
+
+

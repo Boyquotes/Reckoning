@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://ym77h0p4xkan"]
+[gd_scene load_steps=8 format=3 uid="uid://ym77h0p4xkan"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_6us52"]
 [ext_resource type="Texture2D" uid="uid://dkro3npbomh5q" path="res://icon.svg" id="2_5vwqb"]
 [ext_resource type="Resource" uid="uid://xmqaq36tm54p" path="res://src/player/stats/player_stats.tres" id="2_ai6ku"]
 [ext_resource type="Script" path="res://src/player/state_machine/player_state_machine.gd" id="3_lv8x2"]
+[ext_resource type="PackedScene" uid="uid://s0l2rlqlqq5v" path="res://src/resources/hurt_hit_boxes/hurt_box/hurt_box.tscn" id="5_kc2rg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8y4h1"]
 size = Vector2(18, 18)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uthh8"]
+size = Vector2(18, 18)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_6us52")
-stats = ExtResource("2_ai6ku")
+_stats = ExtResource("2_ai6ku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8y4h1")
@@ -27,3 +31,14 @@ target_position = Vector2(-12, 0)
 
 [node name="PlayerStateMachine" type="Node2D" parent="."]
 script = ExtResource("3_lv8x2")
+
+[node name="HurtBox" parent="." instance=ExtResource("5_kc2rg")]
+collision_layer = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("RectangleShape2D_uthh8")
+debug_color = Color(0.956863, 0, 0.541176, 0.419608)
+
+[connection signal="collided" from="HurtBox" to="." method="_on_hurt_box_collided"]
+
+[editable path="HurtBox"]

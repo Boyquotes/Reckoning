@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var player = $Player
 @onready var label_current_state = $HUD/LabelCurrentState
 @onready var label_double_jumps = $HUD/LabelDoubleJumps
 @onready var label_dahs = $HUD/LabelDashs
@@ -12,8 +13,14 @@ var states = {
 	3: "jump",
 	4: "double jump",
 	5: "wall jump",
-	6: "dash"
+	6: "dash",
+	7: "stopped",
+	8: "death"
 }
+
+func _ready():
+	player.set_health(100)
+	player.start()
 
 func _process(delta):
 	label_current_state.text = "Current State: " + states[machine_state._current_state]
