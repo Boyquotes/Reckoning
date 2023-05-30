@@ -14,12 +14,6 @@ func _ready():
 	_hurt_box.setup(self)
 	
 	_stats.connect("death", _player_death)
-
-# aqui deve ser resetado tudo quanto a maquina de estado, animações, menos a vida
-# esse método deve ser chamado sempre que for iniciar o player
-# para ter certeza que dá tudo certo
-func reset():
-	_stats.reset()
 	
 # aqui deve ser setado a vida que o player deve iniciar
 # pois a room irá carregar os dados anteriores

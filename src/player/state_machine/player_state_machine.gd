@@ -25,10 +25,12 @@ var _raycast_right: RayCast2D
 var _raycast_left: RayCast2D
 
 
-enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH, STOPPED, DEATH}
-var _current_state = STOPPED
+enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH, HURTED, DEATH}
+var _current_state = IDLE
 var _enter_state = true
 
+func _ready():
+	set_physics_process(false)
 
 func setup(_permanent_state_arg: CharacterBody2D, 
 	_raycast_right_arg: RayCast2D,
@@ -55,27 +57,25 @@ func _physics_process(delta):
 			_wall_jump_state(delta)
 		DASH:
 			_dash_state(delta)
-		STOPPED:
-			_stopped_state()
+		HURTED:
+			_hurted_state(delta)
 		DEATH:
-			pass
+			_death_state()
 	
 # api
 func start():
 	_set_state(IDLE)
+	set_physics_process(true)
 	
-func reset():
-	_set_state(STOPPED)
+func player_hurted():
+	# essa função será chamada pelo player para avisar quando o player foi hitado
+	#_set_state(HURTED) por enquanto não :)
+	pass
 	
 func player_died():
 	_set_state(DEATH)
 
 # state functions
-func _stopped_state():
-	# nesse estado deve ser resetado tudo para zero
-	# só sai desse estado quando a função start é chamada por fora
-	_permanent_state.velocity = Vector2.ZERO
-
 func _idle_state(_delta):
 	if _enter_state:
 		_reset_attributes()
@@ -172,7 +172,10 @@ func _dash_state(_delta):
 	_apply_lerp_y(DASH_LERP_WEIGHT)
 	_set_state(_check_dash_state())
 	
-func _dead_state():
+func _hurted_state(_delta):
+	_permanent_state.velocity = Vector2.ZERO
+	
+func _death_state():
 	_permanent_state.velocity = Vector2.ZERO
 	
 	
@@ -255,6 +258,9 @@ func _check_dash_state():
 		new_state = FALL
 	return new_state
 	
+func _check_hurted_state():
+	pass
+	
 # help functions
 func _apply_gravity(_delta):
 	_permanent_state.velocity.y += GRAVITY * _delta
@@ -287,5 +293,3 @@ func _reset_attributes():
 
 func _pull_dash():
 	_dashs = max(0, _dashs - 1)
-
-

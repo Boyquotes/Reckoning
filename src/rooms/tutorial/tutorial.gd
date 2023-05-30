@@ -16,7 +16,7 @@ var states = {
 	4: "double jump",
 	5: "wall jump",
 	6: "dash",
-	7: "stopped",
+	7: "hurted",
 	8: "death"
 }
 
@@ -39,6 +39,5 @@ func _player_death():
 
 func _reset_player():
 	player.global_position = spawn1.global_position
-	player.reset()
 	player.set_health(100)
 	player.start()

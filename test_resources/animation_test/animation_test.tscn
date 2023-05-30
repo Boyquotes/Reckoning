@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhs18p8fhhnkx"]
+
+[ext_resource type="Texture2D" uid="uid://dkro3npbomh5q" path="res://icon.svg" id="1_4ioar"]
+[ext_resource type="Script" path="res://test_resources/animation_test/animation_test.gd" id="1_gltt4"]
+
+[sub_resource type="Animation" id="Animation_jafj5"]
+resource_name = "moving"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(30, 0), Vector2(20, 0), Vector2(10, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tp10o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_73kng"]
+_data = {
+"RESET": SubResource("Animation_tp10o"),
+"moving": SubResource("Animation_jafj5")
+}
+
+[node name="AnimationTest" type="Node2D"]
+script = ExtResource("1_gltt4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_73kng")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4ioar")
