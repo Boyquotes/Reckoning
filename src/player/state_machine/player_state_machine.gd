@@ -25,7 +25,7 @@ var _raycast_right: RayCast2D
 var _raycast_left: RayCast2D
 
 
-enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH, HURTED, DEATH}
+enum {IDLE, WALK, FALL, JUMP, DOUBLE_JUMP, WALL_JUMP, DASH, HURTED, DEATH, ATTACK}
 var _current_state = IDLE
 var _enter_state = true
 
@@ -38,8 +38,7 @@ func setup(_permanent_state_arg: CharacterBody2D,
 		
 	_permanent_state = _permanent_state_arg
 	_raycast_right = _raycast_right_arg
-	_raycast_left = _raycast_left_arg
-	
+	_raycast_left = _raycast_left_arg	
 	
 func _physics_process(delta):
 	match _current_state:
@@ -210,6 +209,8 @@ func _check_fall_state():
 		new_state = IDLE
 	elif _permanent_state.is_on_floor() and Input.get_axis("move_left", "move_right") != 0:
 		new_state = WALK
+	elif Input.is_key_pressed(KEY_K):
+		new_state = ATTACK
 	elif Input.is_action_just_pressed("jump") and (_raycast_left.is_colliding() or _raycast_right.is_colliding()):
 		new_state = WALL_JUMP
 	elif Input.is_action_just_pressed("jump") and _double_jumps != 0:
