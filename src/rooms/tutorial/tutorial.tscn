@@ -49,28 +49,11 @@ position = Vector2(53, 42)
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="LabelCurrentState" type="Label" parent="HUD"]
-offset_left = 179.0
-offset_top = 1.0
-offset_right = 224.0
-offset_bottom = 24.0
+offset_left = 211.0
+offset_top = -1.0
+offset_right = 256.0
+offset_bottom = 22.0
 theme_override_font_sizes/font_size = 7
-text = "Current state"
-
-[node name="LabelDoubleJumps" type="Label" parent="HUD"]
-offset_left = 179.0
-offset_top = 11.0
-offset_right = 224.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 7
-text = "Jumps: "
-
-[node name="LabelDashs" type="Label" parent="HUD"]
-offset_left = 179.0
-offset_top = 22.0
-offset_right = 224.0
-offset_bottom = 45.0
-theme_override_font_sizes/font_size = 7
-text = "Dashs: "
 
 [node name="PlayerHUD" parent="HUD" instance=ExtResource("4_qwuiv")]
 position = Vector2(51, 13)

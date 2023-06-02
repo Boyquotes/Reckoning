@@ -1,13 +1,128 @@
-[gd_scene load_steps=8 format=3 uid="uid://ym77h0p4xkan"]
+[gd_scene load_steps=38 format=3 uid="uid://ym77h0p4xkan"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_6us52"]
-[ext_resource type="Texture2D" uid="uid://dkro3npbomh5q" path="res://icon.svg" id="2_5vwqb"]
 [ext_resource type="Resource" uid="uid://xmqaq36tm54p" path="res://src/player/stats/player_stats.tres" id="2_ai6ku"]
-[ext_resource type="Script" path="res://src/player/state_machine/player_state_machine.gd" id="3_lv8x2"]
 [ext_resource type="PackedScene" uid="uid://s0l2rlqlqq5v" path="res://src/resources/hurt_hit_boxes/hurt_box/hurt_box.tscn" id="5_kc2rg"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_idle.gd" id="6_3l5ig"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/state_machine.gd" id="6_aq5oi"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_walk.gd" id="7_gt14f"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_fall.gd" id="8_nc7td"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_jump.gd" id="9_bldjm"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_double_jump.gd" id="11_lr3ij"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_wall_jump.gd" id="11_wtdvk"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_dash.gd" id="12_fsod6"]
+[ext_resource type="Texture2D" uid="uid://ce78ylympb4b" path="res://src/player/sprites/player/death/death1.png" id="14_s8suj"]
+[ext_resource type="Texture2D" uid="uid://dr6sfewaqptao" path="res://src/player/sprites/player/death/death2.png" id="15_irja6"]
+[ext_resource type="Texture2D" uid="uid://ckwg5x8t3ny53" path="res://src/player/sprites/player/death/death3.png" id="16_g6on3"]
+[ext_resource type="Texture2D" uid="uid://b8owo6xc8a7gn" path="res://src/player/sprites/player/death/death4.png" id="17_nimaj"]
+[ext_resource type="Texture2D" uid="uid://xrmds6m2fmmj" path="res://src/player/sprites/player/death/death5.png" id="18_yxr82"]
+[ext_resource type="Texture2D" uid="uid://boiuwio23e18c" path="res://src/player/sprites/player/death/death6.png" id="19_s0irn"]
+[ext_resource type="Texture2D" uid="uid://dog6qiiq3s18o" path="res://src/player/sprites/player/death/death7.png" id="20_al311"]
+[ext_resource type="Texture2D" uid="uid://b531mtfxfagyd" path="res://src/player/sprites/player/fall/fall.png" id="21_1e74e"]
+[ext_resource type="Texture2D" uid="uid://bvsn72c7m2sws" path="res://src/player/sprites/player/idle/idle1.png" id="22_h48w4"]
+[ext_resource type="Texture2D" uid="uid://dapaimarlpjh3" path="res://src/player/sprites/player/idle/idle2.png" id="23_givew"]
+[ext_resource type="Texture2D" uid="uid://dc7v3t6pnmhgh" path="res://src/player/sprites/player/idle/idle3.png" id="24_ssdgm"]
+[ext_resource type="Texture2D" uid="uid://dc88ijr8oi660" path="res://src/player/sprites/player/idle/idle4.png" id="25_x5538"]
+[ext_resource type="Texture2D" uid="uid://bd64m6vvvebbu" path="res://src/player/sprites/player/idle/idle5.png" id="26_1y2po"]
+[ext_resource type="Texture2D" uid="uid://w0heyv4ftx1v" path="res://src/player/sprites/player/idle/idle6.png" id="27_uvngc"]
+[ext_resource type="Texture2D" uid="uid://0whlmbyhlhsq" path="res://src/player/sprites/player/idle/idle7.png" id="28_3aqes"]
+[ext_resource type="Texture2D" uid="uid://ba4p306mpx5ur" path="res://src/player/sprites/player/walk/walk1.png" id="29_lc743"]
+[ext_resource type="Texture2D" uid="uid://exjkjbpsq8dg" path="res://src/player/sprites/player/walk/walk2.png" id="30_aqp0n"]
+[ext_resource type="Texture2D" uid="uid://c4j5qksc2r12n" path="res://src/player/sprites/player/walk/walk3.png" id="31_hscue"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_attack.gd.gd" id="32_b2ruc"]
+[ext_resource type="Texture2D" uid="uid://b27lyanbmkpqx" path="res://src/player/sprites/player/walk/walk4.png" id="32_dvijt"]
+[ext_resource type="Texture2D" uid="uid://cxb2btnbw4q7n" path="res://src/player/sprites/player/walk/walk5.png" id="33_l2yln"]
+[ext_resource type="PackedScene" uid="uid://ig24bgxnmlfp" path="res://src/player/weapons/sword1/sword.tscn" id="34_fylp7"]
+[ext_resource type="Texture2D" uid="uid://dcv88bji7i1go" path="res://src/player/sprites/player/walk/walk6.png" id="34_uru12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8y4h1"]
-size = Vector2(18, 18)
+size = Vector2(14, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ifivw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_s8suj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_irja6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_g6on3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_nimaj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_yxr82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_s0irn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_al311")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_1e74e")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_h48w4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_givew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ssdgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_x5538")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_1y2po")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_uvngc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_3aqes")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_lc743")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_aqp0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_hscue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_dvijt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_l2yln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_uru12")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uthh8"]
 size = Vector2(18, 18)
@@ -19,9 +134,11 @@ _stats = ExtResource("2_ai6ku")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8y4h1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.14, 0.14)
-texture = ExtResource("2_5vwqb")
+[node name="Textures" type="Node2D" parent="."]
+
+[node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="Textures"]
+sprite_frames = SubResource("SpriteFrames_ifivw")
+animation = &"walk"
 
 [node name="RayCast2DRight" type="RayCast2D" parent="."]
 target_position = Vector2(12, 0)
@@ -29,8 +146,33 @@ target_position = Vector2(12, 0)
 [node name="RayCast2D2Left" type="RayCast2D" parent="."]
 target_position = Vector2(-12, 0)
 
-[node name="PlayerStateMachine" type="Node2D" parent="."]
-script = ExtResource("3_lv8x2")
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_aq5oi")
+initial_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("6_3l5ig")
+
+[node name="WalkState" type="Node" parent="StateMachine"]
+script = ExtResource("7_gt14f")
+
+[node name="FallState" type="Node" parent="StateMachine"]
+script = ExtResource("8_nc7td")
+
+[node name="JumpState" type="Node" parent="StateMachine"]
+script = ExtResource("9_bldjm")
+
+[node name="DoubleJumpState" type="Node" parent="StateMachine"]
+script = ExtResource("11_lr3ij")
+
+[node name="WallJumpState" type="Node" parent="StateMachine"]
+script = ExtResource("11_wtdvk")
+
+[node name="DashState" type="Node" parent="StateMachine"]
+script = ExtResource("12_fsod6")
+
+[node name="AttackState" type="Node" parent="StateMachine"]
+script = ExtResource("32_b2ruc")
 
 [node name="HurtBox" parent="." instance=ExtResource("5_kc2rg")]
 collision_layer = 1
@@ -38,6 +180,9 @@ collision_layer = 1
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("RectangleShape2D_uthh8")
 debug_color = Color(0.956863, 0, 0.541176, 0.419608)
+
+[node name="Sword" parent="." instance=ExtResource("34_fylp7")]
+position = Vector2(-1, -2)
 
 [connection signal="collided" from="HurtBox" to="." method="_on_hurt_box_collided"]
 

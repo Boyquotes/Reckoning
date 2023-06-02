@@ -1,0 +1,159 @@
+[gd_scene load_steps=10 format=3 uid="uid://ig24bgxnmlfp"]
+
+[ext_resource type="Script" path="res://src/player/weapons/sword1/sword.gd" id="1_54o3j"]
+[ext_resource type="Texture2D" uid="uid://byvlip0so4mtb" path="res://src/player/weapons/sword1/sprites/sword_tiled.png" id="1_yjsd0"]
+[ext_resource type="PackedScene" uid="uid://kl7wub0ymnuk" path="res://src/resources/hurt_hit_boxes/hit_box/hit_box.tscn" id="2_xxee1"]
+
+[sub_resource type="Animation" id="Animation_rxkk7"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_t3xdj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_f3nic"]
+resource_name = "attack1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_opxxk"]
+resource_name = "attack2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rbbi7"]
+_data = {
+"RESET": SubResource("Animation_t3xdj"),
+"attack1": SubResource("Animation_f3nic"),
+"attack2": SubResource("Animation_opxxk"),
+"idle": SubResource("Animation_rxkk7")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7sqan"]
+height = 34.0
+
+[node name="Sword" type="Node2D"]
+z_index = 1
+script = ExtResource("1_54o3j")
+
+[node name="SwordSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yjsd0")
+hframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 1.5
+libraries = {
+"": SubResource("AnimationLibrary_rbbi7")
+}
+
+[node name="HitBox" parent="." instance=ExtResource("2_xxee1")]
+collision_layer = 2
+monitoring = false
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(22, 6)
+shape = SubResource("CapsuleShape2D_7sqan")
+
+[node name="RightMarker2D" type="Marker2D" parent="."]
+position = Vector2(22, 6)
+
+[node name="LeftMarker2D" type="Marker2D" parent="."]
+position = Vector2(-23, 5)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+[editable path="HitBox"]
