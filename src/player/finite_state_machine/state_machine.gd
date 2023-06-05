@@ -1,7 +1,8 @@
 extends Node
 class_name StateMachine
 
-signal transitioned(state_name)
+signal trauma_requisition(trauma: float)
+signal transitioned(state_name: String)
 
 var current_direction = 1 : set = _set_current_direction
 var double_jumps = 1
@@ -18,7 +19,8 @@ var player_sword: Node2D
 func setup(_persistent_state: CharacterBody2D,
 	_raycast_right: RayCast2D,
 	_raycast_left: RayCast2D,
-	_player_animated_sprite: AnimatedSprite2D, _sword: Node2D):
+	_player_animated_sprite: AnimatedSprite2D, 
+	_sword: Node2D):
 	
 	for child in get_children():
 		child.setup(self, _persistent_state, _raycast_right, _raycast_left, _player_animated_sprite, _sword)
@@ -28,7 +30,13 @@ func setup(_persistent_state: CharacterBody2D,
 	
 func start():
 	working = true
-	state.enter()
+	transition_to("IdleState")
+	
+func player_hited():
+	transition_to("HitedState")
+	
+func player_died():
+	transition_to("DeathState")
 	
 func _set_current_direction(new_value):
 	current_direction = new_value
@@ -60,4 +68,7 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	state = get_node(target_state_name)
 	state.enter(msg)
 	emit_signal("transitioned", state.name)
+	
+func trauma_requisiton(trauma: float):
+	emit_signal("trauma_requisition", trauma)
 ###############################################

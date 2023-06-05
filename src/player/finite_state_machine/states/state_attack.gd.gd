@@ -3,6 +3,10 @@ class_name AttackState
 
 const ATTACK_GRAVITY = 20
 
+func _ready():
+	await owner.ready
+	sword.connect("attack_animation_finished", _sword_attack_animation_finished)
+
 func handle_input(_event: InputEvent):
 	pass
 	
@@ -17,13 +21,15 @@ func physics_update(_delta):
 func enter(_msg = {}):
 	player_animated_sprite.play("idle")
 	sword.attack()
-	await sword.animation_finished
 	
-	if not persistent_state.is_on_floor():
+func exit():
+	sword.cancel_attack()
+
+
+func _sword_attack_animation_finished():
+	if Input.is_action_just_pressed("attack"):
+		state_machine.transition_to("AttackState")
+	elif not persistent_state.is_on_floor():
 		state_machine.transition_to("FallState")
 	elif persistent_state.is_on_floor():
 		state_machine.transition_to("IdleState")
-	
-func exit():
-	pass
-

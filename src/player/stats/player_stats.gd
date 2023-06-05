@@ -22,6 +22,9 @@ func get_max_health():
 func get_health():
 	return _current_health
 	
+func is_died():
+	return _current_health <= 0
+	
 func set_health(amount):
 	_current_health = amount
 	emit_signal("health_changed", _current_health)

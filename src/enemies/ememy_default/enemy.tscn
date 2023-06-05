@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://vsdcov43fw2p"]
+
+[ext_resource type="Script" path="res://src/enemies/ememy_default/enemy.gd" id="1_ctsyb"]
+[ext_resource type="PackedScene" uid="uid://bniv84tjqruus" path="res://src/resources/health/health.tscn" id="2_ryjqp"]
+[ext_resource type="PackedScene" uid="uid://s0l2rlqlqq5v" path="res://src/resources/hurt_hit_boxes/hurt_box/hurt_box.tscn" id="3_4erwg"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ctsyb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Health" parent="." instance=ExtResource("2_ryjqp")]
+
+[node name="HurtBox" parent="." instance=ExtResource("3_4erwg")]
+collision_layer = 2
+
+[connection signal="collided" from="HurtBox" to="." method="_on_hurt_box_collided"]

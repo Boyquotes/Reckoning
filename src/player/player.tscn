@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ym77h0p4xkan"]
+[gd_scene load_steps=43 format=3 uid="uid://ym77h0p4xkan"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_6us52"]
 [ext_resource type="Resource" uid="uid://xmqaq36tm54p" path="res://src/player/stats/player_stats.tres" id="2_ai6ku"]
@@ -9,8 +9,11 @@
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_fall.gd" id="8_nc7td"]
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_jump.gd" id="9_bldjm"]
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_double_jump.gd" id="11_lr3ij"]
+[ext_resource type="Texture2D" uid="uid://pe7kbneex3jb" path="res://src/player/sprites/player/hited/hited1.png" id="11_olrpq"]
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_wall_jump.gd" id="11_wtdvk"]
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_dash.gd" id="12_fsod6"]
+[ext_resource type="Texture2D" uid="uid://bxyfm36bbkd2q" path="res://src/player/sprites/player/hited/hited2.png" id="12_hd2js"]
+[ext_resource type="Texture2D" uid="uid://1xdkjtugbuq4" path="res://src/player/sprites/player/hited/hited3.png" id="13_tfupd"]
 [ext_resource type="Texture2D" uid="uid://ce78ylympb4b" path="res://src/player/sprites/player/death/death1.png" id="14_s8suj"]
 [ext_resource type="Texture2D" uid="uid://dr6sfewaqptao" path="res://src/player/sprites/player/death/death2.png" id="15_irja6"]
 [ext_resource type="Texture2D" uid="uid://ckwg5x8t3ny53" path="res://src/player/sprites/player/death/death3.png" id="16_g6on3"]
@@ -34,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://cxb2btnbw4q7n" path="res://src/player/sprites/player/walk/walk5.png" id="33_l2yln"]
 [ext_resource type="PackedScene" uid="uid://ig24bgxnmlfp" path="res://src/player/weapons/sword1/sword.tscn" id="34_fylp7"]
 [ext_resource type="Texture2D" uid="uid://dcv88bji7i1go" path="res://src/player/sprites/player/walk/walk6.png" id="34_uru12"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_death.gd" id="37_1gjln"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_hited.gd" id="38_whvn4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8y4h1"]
 size = Vector2(14, 16)
@@ -72,6 +77,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"fall",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_olrpq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_hd2js")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_tfupd")
+}],
+"loop": true,
+"name": &"hited",
 "speed": 10.0
 }, {
 "frames": [{
@@ -128,6 +147,8 @@ animations = [{
 size = Vector2(18, 18)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("1_6us52")
 _stats = ExtResource("2_ai6ku")
 
@@ -138,13 +159,15 @@ shape = SubResource("RectangleShape2D_8y4h1")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="Textures"]
 sprite_frames = SubResource("SpriteFrames_ifivw")
-animation = &"walk"
+animation = &"idle"
 
 [node name="RayCast2DRight" type="RayCast2D" parent="."]
 target_position = Vector2(12, 0)
+collision_mask = 4
 
 [node name="RayCast2D2Left" type="RayCast2D" parent="."]
 target_position = Vector2(-12, 0)
+collision_mask = 4
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_aq5oi")
@@ -173,6 +196,12 @@ script = ExtResource("12_fsod6")
 
 [node name="AttackState" type="Node" parent="StateMachine"]
 script = ExtResource("32_b2ruc")
+
+[node name="HitedState" type="Node" parent="StateMachine"]
+script = ExtResource("38_whvn4")
+
+[node name="DeathState" type="Node" parent="StateMachine"]
+script = ExtResource("37_1gjln")
 
 [node name="HurtBox" parent="." instance=ExtResource("5_kc2rg")]
 collision_layer = 1

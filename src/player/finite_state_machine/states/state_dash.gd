@@ -19,6 +19,8 @@ func physics_update(_delta):
 		state_machine.transition_to("FallState")
 	
 func enter(_msg = {}):
+	persistent_state.invencible(true)
+	
 	var dash_direction = Vector2(0, 0)
 	var sides = Input.get_axis("move_left", "move_right")
 	var up = 0
@@ -41,5 +43,5 @@ func enter(_msg = {}):
 		
 	
 func exit():
-	pass
+	persistent_state.invencible(false)
 
