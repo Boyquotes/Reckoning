@@ -30,7 +30,6 @@ func physics_update(_delta):
 	
 func enter(_msg = {}):
 	player_animated_sprite.play("fall")
-	pass
 	
 func exit():
 	pass

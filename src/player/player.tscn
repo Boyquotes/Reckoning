@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ym77h0p4xkan"]
+[gd_scene load_steps=44 format=3 uid="uid://ym77h0p4xkan"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_6us52"]
 [ext_resource type="Resource" uid="uid://xmqaq36tm54p" path="res://src/player/stats/player_stats.tres" id="2_ai6ku"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://boiuwio23e18c" path="res://src/player/sprites/player/death/death6.png" id="19_s0irn"]
 [ext_resource type="Texture2D" uid="uid://dog6qiiq3s18o" path="res://src/player/sprites/player/death/death7.png" id="20_al311"]
 [ext_resource type="Texture2D" uid="uid://b531mtfxfagyd" path="res://src/player/sprites/player/fall/fall.png" id="21_1e74e"]
+[ext_resource type="Texture2D" uid="uid://dvkyds0dinpme" path="res://src/player/sprites/player/jump/jump.png" id="21_kp4hq"]
 [ext_resource type="Texture2D" uid="uid://bvsn72c7m2sws" path="res://src/player/sprites/player/idle/idle1.png" id="22_h48w4"]
 [ext_resource type="Texture2D" uid="uid://dapaimarlpjh3" path="res://src/player/sprites/player/idle/idle2.png" id="23_givew"]
 [ext_resource type="Texture2D" uid="uid://dc7v3t6pnmhgh" path="res://src/player/sprites/player/idle/idle3.png" id="24_ssdgm"]
@@ -41,7 +42,7 @@
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_hited.gd" id="38_whvn4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8y4h1"]
-size = Vector2(14, 16)
+size = Vector2(10, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ifivw"]
 animations = [{
@@ -121,6 +122,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("21_kp4hq")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("29_lc743")
 }, {
 "duration": 1.0,
@@ -159,7 +168,7 @@ shape = SubResource("RectangleShape2D_8y4h1")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="Textures"]
 sprite_frames = SubResource("SpriteFrames_ifivw")
-animation = &"idle"
+animation = &"jump"
 
 [node name="RayCast2DRight" type="RayCast2D" parent="."]
 target_position = Vector2(12, 0)
@@ -211,6 +220,7 @@ shape = SubResource("RectangleShape2D_uthh8")
 debug_color = Color(0.956863, 0, 0.541176, 0.419608)
 
 [node name="Sword" parent="." instance=ExtResource("34_fylp7")]
+visible = false
 position = Vector2(-1, -2)
 
 [connection signal="collided" from="HurtBox" to="." method="_on_hurt_box_collided"]

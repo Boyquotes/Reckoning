@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal create_instance_requisition(instance)
 signal trauma_requisition(trauma: float)
 signal death
 
@@ -38,6 +39,9 @@ func start():
 func invencible(condition: bool):
 	_hurt_box.set_deferred("monitoring", !condition)
 	_hurt_box.set_deferred("monitorable", !condition)
+	
+func create_instance(instance):
+	emit_signal("create_instance_requisition", instance)
 
 # tratamento de dano vindo da hurt box
 func _on_hurt_box_collided(damage, collider):
@@ -59,3 +63,4 @@ func _player_death():
 
 func _trauma_requisitions(trauma: float):
 	emit_signal("trauma_requisition", trauma)
+	

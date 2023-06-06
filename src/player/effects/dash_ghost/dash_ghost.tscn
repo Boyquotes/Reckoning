@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://yi60b145x67"]
+
+[ext_resource type="Shader" path="res://src/resources/shaders/color/color.gdshader" id="1_n6td4"]
+[ext_resource type="Script" path="res://src/player/effects/dash_ghost/dash_ghost.gd" id="2_bg1yn"]
+[ext_resource type="Texture2D" uid="uid://dq4f6wi2rv2mt" path="res://src/player/sprites/player/dash/dash.png" id="2_ejd83"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3s2j"]
+shader = ExtResource("1_n6td4")
+shader_parameter/color_ar = Color(0.941176, 0.92549, 0.886275, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = true
+
+[node name="DashGhost" type="Sprite2D"]
+material = SubResource("ShaderMaterial_e3s2j")
+texture = ExtResource("2_ejd83")
+script = ExtResource("2_bg1yn")

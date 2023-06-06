@@ -9,6 +9,7 @@ extends Node2D
 func _ready():
 	player.connect("death", _player_death)
 	player.connect("trauma_requisition", _trauma_requisitions)
+	player.connect("create_instance_requisition", _create_instance_requistions)
 	player_state_machine.connect("transitioned", _player_state_machine_state_transitioned)
 	shake_camera.target = player
 	_start_player()
@@ -30,3 +31,6 @@ func _player_state_machine_state_transitioned(new_signal: String):
 	
 func _trauma_requisitions(trauma: float):
 	shake_camera.add_trauma(trauma)
+
+func _create_instance_requistions(instance):
+	add_child(instance)

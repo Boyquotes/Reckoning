@@ -27,6 +27,7 @@ func physics_update(_delta):
 
 	
 func enter(_msg = {}):
+	player_animated_sprite.play("jump")
 	persistent_state.velocity.y = -JUMP_FORCE
 	
 func exit():
