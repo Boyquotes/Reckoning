@@ -1,4 +1,4 @@
-extends DoubleJumpState
+extends StatePlayer
 
 func handle_input(_event: InputEvent):
 	pass

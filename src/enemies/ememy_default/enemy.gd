@@ -8,11 +8,10 @@ signal death
 @onready var health = $Health
 @onready var hurt_box = $HurtBox
 
-
 func invencible(condition: bool):
 	hurt_box.set_deferred("monitorable", !condition)
 	hurt_box.set_deferred("monitoring", !condition)
-			
+
 func _hited():
 	pass
 			

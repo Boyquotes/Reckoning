@@ -14,7 +14,6 @@ signal death
 
 @onready var _player_animated_sprite = $Textures/PlayerAnimatedSprite2D
 
-
 func _ready():
 	_finite_state_machine.setup(self, 
 	_raycast_right, _raycast_left, 

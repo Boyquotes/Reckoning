@@ -1,4 +1,4 @@
-extends DeathState
+extends StatePlayer
 
 const DEATH_TRAUMA = 0.2
 

@@ -1,4 +1,4 @@
-extends AttackState
+extends StatePlayer
 
 const ATTACK_GRAVITY = 20
 
