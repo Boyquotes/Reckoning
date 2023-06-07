@@ -1,5 +1,4 @@
-extends State
-class_name HitedState
+extends HitedState
 
 const HITED_TRAUMA = 0.18
 const hited_time = 0.5

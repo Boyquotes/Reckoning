@@ -1,5 +1,4 @@
-extends State
-class_name JumpState
+extends JumpState
 
 func handle_input(_event: InputEvent):
 	pass

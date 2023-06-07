@@ -1,5 +1,4 @@
-extends State
-class_name IdleState
+extends IdleState
 
 func handle_input(_event: InputEvent):
 	pass

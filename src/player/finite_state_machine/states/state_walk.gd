@@ -1,5 +1,4 @@
-extends State
-class_name WalkState
+extends WalkState
 
 func handle_input(_event: InputEvent):
 	pass

@@ -1,5 +1,4 @@
-extends State
-class_name AttackState
+extends AttackState
 
 const ATTACK_GRAVITY = 20
 

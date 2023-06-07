@@ -1,5 +1,4 @@
-extends State
-class_name DeathState
+extends DeathState
 
 const DEATH_TRAUMA = 0.2
 

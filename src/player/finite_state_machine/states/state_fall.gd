@@ -1,5 +1,4 @@
-extends State
-class_name FallState
+extends FallState
 
 func handle_input(_event: InputEvent):
 	pass

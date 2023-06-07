@@ -1,5 +1,4 @@
-extends State
-class_name WallJumpState
+extends WallJumpState
 
 const WALL_JUMP_FORCE = 200
 const WALL_JUMP_LERP_WEIGHT = 0.05

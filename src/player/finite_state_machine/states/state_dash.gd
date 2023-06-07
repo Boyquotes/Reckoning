@@ -1,5 +1,4 @@
-extends State
-class_name DashState
+extends DashState
 
 var DASH_GHOST_PRELOAD = preload("res://src/player/effects/dash_ghost/dash_ghost.tscn")
 
