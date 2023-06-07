@@ -11,6 +11,7 @@ shader_parameter/alpha = 1.0
 shader_parameter/active = true
 
 [node name="DashGhost" type="Sprite2D"]
+z_index = -1
 material = SubResource("ShaderMaterial_e3s2j")
 texture = ExtResource("2_ejd83")
 script = ExtResource("2_bg1yn")

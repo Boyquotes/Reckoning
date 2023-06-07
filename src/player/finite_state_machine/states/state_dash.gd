@@ -7,14 +7,14 @@ const DASH_FORCE = 400
 const DASH_LERP_WEIGHT = 0.1
 const DASH_TRAUMA = 0.2
 
-var can_create_dash_ghost = true
-var create_dash_ghost_time = 0.018
-var dash_ghost_timer: Timer
+var can_create_dash_effects = true
+var create_dash_effects_time = 0.018
+var dash_effects_timer: Timer
 
 func _ready():
-	dash_ghost_timer = Timer.new()
-	dash_ghost_timer.connect("timeout", _on_dash_ghost_timeout)
-	add_child(dash_ghost_timer)
+	dash_effects_timer = Timer.new()
+	dash_effects_timer.connect("timeout", _on_dash_effects_timeout)
+	add_child(dash_effects_timer)
 
 func handle_input(_event: InputEvent):
 	pass
@@ -23,11 +23,11 @@ func update(_delta):
 	pass
 	
 func physics_update(_delta):
-	if can_create_dash_ghost:
+	if can_create_dash_effects:
 		var d = _create_dash_ghot()
 		persistent_state.create_instance(d)
-		can_create_dash_ghost = false
-		dash_ghost_timer.start(create_dash_ghost_time)
+		can_create_dash_effects = false
+		dash_effects_timer.start(create_dash_effects_time)
 	
 	_apply_move_and_slide()
 	_apply_lerp_x(DASH_LERP_WEIGHT)
@@ -66,11 +66,12 @@ func exit():
 	persistent_state.invencible(false)
 
 
+# funções da classe dash
 func _create_dash_ghot():
 	var dg = DASH_GHOST_PRELOAD.instantiate()
 	dg.global_position = persistent_state.global_position
 	dg.flip_h = state_machine.current_direction == -1
 	return dg
 
-func _on_dash_ghost_timeout():
-	can_create_dash_ghost = true
+func _on_dash_effects_timeout():
+	can_create_dash_effects = true

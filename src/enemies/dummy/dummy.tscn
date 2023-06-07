@@ -13,7 +13,7 @@ height = 22.0
 resource_local_to_scene = true
 shader = ExtResource("3_umjo0")
 shader_parameter/color_ar = Color(0.941176, 0.92549, 0.886275, 1)
-shader_parameter/alpha = 0.0
+shader_parameter/alpha = 1.0
 shader_parameter/active = false
 
 [sub_resource type="Animation" id="Animation_eej2a"]
@@ -226,7 +226,6 @@ radius = 8.0
 height = 24.0
 
 [node name="Dummy" instance=ExtResource("1_ad8i0")]
-collision_layer = 0
 collision_mask = 4
 script = ExtResource("2_b1mfk")
 flip_h = false
