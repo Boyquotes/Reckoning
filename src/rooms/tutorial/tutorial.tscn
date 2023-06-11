@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf5qqy8rnvth3"]
+[gd_scene load_steps=13 format=3 uid="uid://bf5qqy8rnvth3"]
 
 [ext_resource type="Script" path="res://src/rooms/tutorial/tutorial.gd" id="1_emjdr"]
 [ext_resource type="PackedScene" uid="uid://ym77h0p4xkan" path="res://src/player/player.tscn" id="1_hou41"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://d2wqiyaowlpw" path="res://test_resources/thorns/thorns_test.tscn" id="4_r6of7"]
 [ext_resource type="PackedScene" uid="uid://dt2qfim1t5m5v" path="res://src/resources/shake_camera_2d/shake_camera_2d.tscn" id="5_nvech"]
 [ext_resource type="PackedScene" uid="uid://dhhn808j4ccx1" path="res://src/enemies/dummy/dummy.tscn" id="7_7xogu"]
+[ext_resource type="PackedScene" uid="uid://b0pqyfnl6vyig" path="res://src/enemies/skeleton/skeleton.tscn" id="8_fcqne"]
+[ext_resource type="PackedScene" uid="uid://bf6jahr427l8r" path="res://src/resources/limite_sytem/limite_block/limite_block.tscn" id="9_p76vu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8r5gd"]
 resource_name = "floor"
@@ -73,6 +75,15 @@ flip_h = true
 [node name="Dummy3" parent="Dummys" instance=ExtResource("7_7xogu")]
 position = Vector2(1505, 37)
 flip_h = true
+
+[node name="Skeleton" parent="." instance=ExtResource("8_fcqne")]
+position = Vector2(252, 91)
+
+[node name="LimiteBlock" parent="." instance=ExtResource("9_p76vu")]
+position = Vector2(217, 120)
+
+[node name="LimiteBlock2" parent="." instance=ExtResource("9_p76vu")]
+position = Vector2(360, 120)
 
 [editable path="Player"]
 [editable path="Player/HurtBox"]

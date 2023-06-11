@@ -23,7 +23,7 @@ func update(_delta):
 	
 func physics_update(_delta):
 	if can_create_dash_effects:
-		var d = _create_dash_ghot()
+		var d = _create_dash_ghost()
 		persistent_state.create_instance(d)
 		can_create_dash_effects = false
 		dash_effects_timer.start(create_dash_effects_time)
@@ -36,8 +36,7 @@ func physics_update(_delta):
 		state_machine.transition_to("FallState")
 	
 func enter(_msg = {}):
-	state_machine.trauma_requisiton(DASH_TRAUMA)
-	
+	persistent_state.trauma_requisitions(DASH_TRAUMA)
 	persistent_state.invencible(true)
 	
 	var dash_direction = Vector2(0, 0)
@@ -66,7 +65,7 @@ func exit():
 
 
 # funções da classe dash
-func _create_dash_ghot():
+func _create_dash_ghost():
 	var dg = DASH_GHOST_PRELOAD.instantiate()
 	dg.global_position = persistent_state.global_position
 	dg.flip_h = state_machine.current_direction == -1

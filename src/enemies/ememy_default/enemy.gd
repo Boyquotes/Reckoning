@@ -12,7 +12,7 @@ func invencible(condition: bool):
 	hurt_box.set_deferred("monitorable", !condition)
 	hurt_box.set_deferred("monitoring", !condition)
 
-func _hited():
+func _hited(collider):
 	pass
 			
 func _died():
@@ -24,4 +24,4 @@ func _on_hurt_box_collided(damage, collider):
 		if health.is_died():
 			_died()
 		else:
-			_hited()
+			_hited(collider)

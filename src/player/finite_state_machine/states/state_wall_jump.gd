@@ -10,7 +10,7 @@ func update(_delta):
 	pass
 	
 func physics_update(_delta):
-	_apply_gravity(_delta)
+	_apply_gravity(_delta, GRAVITY, GRAVITY_MAX)
 	_apply_lerp_x(WALL_JUMP_LERP_WEIGHT)
 	_apply_move_and_slide()
 	

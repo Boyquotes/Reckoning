@@ -1,8 +1,14 @@
 extends Node
 class_name StateMachine
 
+# talvez seja inutil
+signal create_instance_requisition(instance)
 signal trauma_requisition(trauma: float)
+#####################
+signal change_direction(new_direction)
 signal transitioned(state_name: String)
+
+var current_direction = 1 : set = _set_current_direction
 
 var working = false
 
@@ -33,7 +39,16 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	state = get_node(target_state_name)
 	state.enter(msg)
 	emit_signal("transitioned", state.name)
-	
-func trauma_requisiton(trauma: float):
+
+#######################################################
+func _trauma_requistion(trauma: float):
 	emit_signal("trauma_requisition", trauma)
+	
+func _create_instance_requisition(instance):
+	emit_signal("create_instance_requisition", instance)
+	
+func _set_current_direction(new_value):
+	if new_value != current_direction:
+		current_direction = new_value
+		emit_signal("change_direction", current_direction)
 ###############################################

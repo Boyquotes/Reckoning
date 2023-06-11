@@ -8,7 +8,7 @@ func update(_delta):
 	
 func physics_update(_delta):
 	persistent_state.velocity.x = 0
-	_apply_gravity(_delta)
+	_apply_gravity(_delta, GRAVITY, GRAVITY_MAX)
 	_apply_lerp_x(MOVEMENT_LERP_WEIGHT)
 	_apply_move_and_slide()
 	

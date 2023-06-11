@@ -1,6 +1,5 @@
 extends StateMachine
 
-var current_direction = 1 : set = _set_current_direction
 var double_jumps = 1
 var dashs = 1
 
@@ -29,9 +28,4 @@ func player_hited():
 	
 func player_died():
 	transition_to("DeathState")
-	
-func _set_current_direction(new_value):
-	current_direction = new_value
-	player_animated_sprite.flip_h = new_value < 0
-	player_sword.flip_h(new_value < 0)
 ###########################

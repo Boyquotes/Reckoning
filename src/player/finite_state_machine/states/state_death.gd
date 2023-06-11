@@ -13,7 +13,7 @@ func physics_update(_delta):
 	
 func enter(_msg = {}):
 	persistent_state.velocity = Vector2.ZERO
-	state_machine.trauma_requisiton(DEATH_TRAUMA)
+	persistent_state.trauma_requisitions(DEATH_TRAUMA)
 	player_animated_sprite.play("death")
 	
 func exit():

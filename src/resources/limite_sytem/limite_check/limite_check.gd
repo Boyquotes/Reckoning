@@ -1,4 +1,6 @@
 extends Area2D
 
+signal limite_collided
+
 func _on_area_entered(area):
-	pass # Replace with function body.
+	emit_signal("limite_collided")

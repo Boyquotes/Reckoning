@@ -21,8 +21,8 @@ func physics_update(_delta):
 	_apply_move_and_slide()
 	
 func enter(_msg = {}):
+	persistent_state.trauma_requisitions(HITED_TRAUMA)
 	persistent_state.invencible(true)
-	state_machine.trauma_requisiton(HITED_TRAUMA)
 	player_animated_sprite.play("hited")
 	timer_hited_animation_finish.start(hited_time)
 	

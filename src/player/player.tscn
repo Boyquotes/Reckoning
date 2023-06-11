@@ -33,11 +33,11 @@
 [ext_resource type="Texture2D" uid="uid://ba4p306mpx5ur" path="res://src/player/sprites/player/walk/walk1.png" id="29_lc743"]
 [ext_resource type="Texture2D" uid="uid://exjkjbpsq8dg" path="res://src/player/sprites/player/walk/walk2.png" id="30_aqp0n"]
 [ext_resource type="Texture2D" uid="uid://c4j5qksc2r12n" path="res://src/player/sprites/player/walk/walk3.png" id="31_hscue"]
-[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_attack.gd.gd" id="32_b2ruc"]
 [ext_resource type="Texture2D" uid="uid://b27lyanbmkpqx" path="res://src/player/sprites/player/walk/walk4.png" id="32_dvijt"]
 [ext_resource type="Texture2D" uid="uid://cxb2btnbw4q7n" path="res://src/player/sprites/player/walk/walk5.png" id="33_l2yln"]
 [ext_resource type="PackedScene" uid="uid://ig24bgxnmlfp" path="res://src/player/weapons/sword1/sword.tscn" id="34_fylp7"]
 [ext_resource type="Texture2D" uid="uid://dcv88bji7i1go" path="res://src/player/sprites/player/walk/walk6.png" id="34_uru12"]
+[ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_attack.gd" id="36_5vp6j"]
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_death.gd" id="37_1gjln"]
 [ext_resource type="Script" path="res://src/player/finite_state_machine/states/state_hited.gd" id="38_whvn4"]
 
@@ -155,8 +155,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uthh8"]
 size = Vector2(18, 18)
 
-[node name="Player" type="CharacterBody2D"]
-collision_layer = 0
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_6us52")
 _stats = ExtResource("2_ai6ku")
@@ -204,7 +204,7 @@ script = ExtResource("11_wtdvk")
 script = ExtResource("12_fsod6")
 
 [node name="AttackState" type="Node" parent="StateMachine"]
-script = ExtResource("32_b2ruc")
+script = ExtResource("36_5vp6j")
 
 [node name="HitedState" type="Node" parent="StateMachine"]
 script = ExtResource("38_whvn4")
@@ -220,7 +220,6 @@ shape = SubResource("RectangleShape2D_uthh8")
 debug_color = Color(0.956863, 0, 0.541176, 0.419608)
 
 [node name="Sword" parent="." instance=ExtResource("34_fylp7")]
-visible = false
 position = Vector2(-1, -2)
 
 [connection signal="collided" from="HurtBox" to="." method="_on_hurt_box_collided"]

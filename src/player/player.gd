@@ -6,6 +6,7 @@ signal death
 
 @export var _stats: Resource
 
+@onready var _collsion_shape = $CollisionShape2D
 @onready var _finite_state_machine = $StateMachine
 @onready var _raycast_right = $RayCast2DRight
 @onready var _raycast_left = $RayCast2D2Left
@@ -21,8 +22,8 @@ func _ready():
 	_hurt_box.setup(self)
 	
 	
-	_finite_state_machine.connect("trauma_requisition", _trauma_requisitions)
-	_sword.connect("trauma_requisition", _trauma_requisitions)
+	_finite_state_machine.connect("change_direction", _change_direction)
+	_sword.connect("trauma_requisition", trauma_requisitions)
 	
 # aqui deve ser setado a vida que o player deve iniciar
 # pois a room irá carregar os dados anteriores
@@ -34,6 +35,7 @@ func set_health(health: float):
 func start():
 	_sword.visible = true
 	_finite_state_machine.start()
+	_collsion_shape.set_deferred("disabled", false)
 	
 func invencible(condition: bool):
 	_hurt_box.set_deferred("monitoring", !condition)
@@ -58,8 +60,14 @@ func _on_hurt_box_collided(damage, collider):
 func _player_death():
 	_sword.visible = false
 	_finite_state_machine.player_died()
+	_collsion_shape.set_deferred("disabled", true)
 	emit_signal("death")
 
-func _trauma_requisitions(trauma: float):
+func trauma_requisitions(trauma: float):
 	emit_signal("trauma_requisition", trauma)
+	
+# recebe -1 ou 1
+func _change_direction(new_direction):
+	_player_animated_sprite.flip_h = new_direction <= 0
+	_sword.flip_h(new_direction < 0)
 	

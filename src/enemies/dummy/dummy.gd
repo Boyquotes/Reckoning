@@ -27,7 +27,7 @@ func _set_flip_h(condition: bool):
 	dummy_tiled.flip_h = condition
 	
 # api vindo de enemy
-func _hited():
+func _hited(collider):
 	animation_player.play("hited")
 	hited_timer.stop()
 	hited_timer.start(_hited_time)
