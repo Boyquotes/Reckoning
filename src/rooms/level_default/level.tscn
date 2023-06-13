@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://btdpb2f0b2vv2"]
+
+[ext_resource type="Script" path="res://src/rooms/level_default/level.gd" id="1_58cul"]
+[ext_resource type="PackedScene" uid="uid://ym77h0p4xkan" path="res://src/player/player.tscn" id="2_eo8kj"]
+[ext_resource type="PackedScene" uid="uid://dt2qfim1t5m5v" path="res://src/resources/shake_camera_2d/shake_camera_2d.tscn" id="3_8nuep"]
+[ext_resource type="PackedScene" uid="uid://cijhlnb7vmcbb" path="res://src/player/hud/player_hud.tscn" id="4_r4ala"]
+[ext_resource type="Texture2D" uid="uid://dkro3npbomh5q" path="res://icon.svg" id="5_dwnqt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_inhtj"]
+size = Vector2(12, 12)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_58cul")
+
+[node name="Player" parent="." instance=ExtResource("2_eo8kj")]
+position = Vector2(47, 101)
+
+[node name="ShakeCamera2D" parent="." instance=ExtResource("3_8nuep")]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="PlayerHUD" parent="Hud" instance=ExtResource("4_r4ala")]
+position = Vector2(50, 15)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="LimiteBlocks" type="Node2D" parent="."]
+
+[node name="Door" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="Sprite2D" type="Sprite2D" parent="Door"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_dwnqt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+shape = SubResource("RectangleShape2D_inhtj")
+
+[connection signal="body_entered" from="Door" to="." method="completed"]

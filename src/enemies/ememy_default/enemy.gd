@@ -12,11 +12,14 @@ func invencible(condition: bool):
 	hurt_box.set_deferred("monitorable", !condition)
 	hurt_box.set_deferred("monitoring", !condition)
 
+# funções que devem ser implementadas quando esta classe
+# for herdada ###########################################
 func _hited(collider):
 	pass
 			
 func _died():
 	pass
+#########################################################
 	
 func _on_hurt_box_collided(damage, collider):
 	if not health.is_died():
