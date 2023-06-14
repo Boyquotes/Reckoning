@@ -25,10 +25,15 @@ func _ready():
 	_finite_state_machine.connect("change_direction", _change_direction)
 	_sword.connect("trauma_requisition", trauma_requisitions)
 	
+# api exterior##################################################################
 # aqui deve ser setado a vida que o player deve iniciar
 # pois a room irá carregar os dados anteriores
 func set_health(health: float):
 	_stats.set_health(health)
+	
+# pega a vida atual, função é chamada pela room quando for salvar os dados
+func get_health():
+	return _stats.get_health()
 	
 # aqui deve ser iniciado a rotina normal do player
 # ou seja, iniciando a machine state como idle
@@ -36,13 +41,19 @@ func start():
 	_sword.visible = true
 	_finite_state_machine.start()
 	_collsion_shape.set_deferred("disabled", false)
+################################################################################
 	
+# api utilizada pelos states ###################################################
 func invencible(condition: bool):
 	_hurt_box.set_deferred("monitoring", !condition)
 	_hurt_box.set_deferred("monitorable", !condition)
 	
 func create_instance(instance):
 	emit_signal("create_instance_requisition", instance)
+
+func trauma_requisitions(trauma: float):
+	emit_signal("trauma_requisition", trauma)
+################################################################################
 
 # tratamento de dano vindo da hurt box
 func _on_hurt_box_collided(damage, collider):
@@ -63,8 +74,7 @@ func _player_death():
 	_collsion_shape.set_deferred("disabled", true)
 	emit_signal("death")
 
-func trauma_requisitions(trauma: float):
-	emit_signal("trauma_requisition", trauma)
+
 	
 # recebe -1 ou 1
 func _change_direction(new_direction):

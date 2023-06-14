@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bxwhg5dq37602"]
+
+[ext_resource type="Script" path="res://src/enemies/traps/loose_thorn/loose_thorn.gd" id="1_4hnkr"]
+[ext_resource type="Texture2D" uid="uid://b1egc0mu0hmx5" path="res://src/enemies/traps/loose_thorn/sprites/death/loose_thorns1.png" id="2_ccyh8"]
+[ext_resource type="Texture2D" uid="uid://d24lj81q84beo" path="res://src/enemies/traps/loose_thorn/sprites/death/loose_thorns2.png" id="3_abeif"]
+[ext_resource type="Texture2D" uid="uid://bkpu3v4s4mc30" path="res://src/enemies/traps/loose_thorn/sprites/death/loose_thorns3.png" id="4_m0xxv"]
+[ext_resource type="Texture2D" uid="uid://cgd6nw4fs7085" path="res://src/enemies/traps/loose_thorn/sprites/idle/loose_thorns.png" id="5_5ntxp"]
+[ext_resource type="PackedScene" uid="uid://kl7wub0ymnuk" path="res://src/resources/hurt_hit_boxes/hit_box/hit_box.tscn" id="6_5y3mb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xtqy7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ccyh8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_abeif")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m0xxv")
+}],
+"loop": true,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5ntxp")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlnxf"]
+size = Vector2(6, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ee8u"]
+size = Vector2(6, 12)
+
+[node name="LooseThorn" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_4hnkr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xtqy7")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xlnxf")
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="HitBox" parent="." instance=ExtResource("6_5y3mb")]
+collision_mask = 1
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("RectangleShape2D_6ee8u")
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_timer_timeout"]
+
+[editable path="HitBox"]

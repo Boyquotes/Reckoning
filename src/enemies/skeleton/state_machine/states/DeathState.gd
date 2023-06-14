@@ -20,7 +20,6 @@ func physics_update(_delta):
 	
 func enter(_msg = {}):
 	animation_player.play("death")
-	persistent_state.invencible(true)
 	
 func exit():
 	pass

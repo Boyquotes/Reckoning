@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://bilaeoucux7hd"]
+
+[ext_resource type="Script" path="res://src/enemies/traps/loose_thorn_base/loose_thorn_base.gd" id="1_ivyof"]
+[ext_resource type="Texture2D" uid="uid://bb33sgrh1ys2" path="res://src/enemies/traps/loose_thorn_base/sprites/idle/loose_thorns.png" id="2_mnwni"]
+[ext_resource type="Texture2D" uid="uid://c0d64vyqj12pe" path="res://src/enemies/traps/loose_thorn_base/sprites/reload/loose_thorn_base_reload1.png" id="3_bmp6y"]
+[ext_resource type="Texture2D" uid="uid://dafdkkarldi45" path="res://src/enemies/traps/loose_thorn_base/sprites/reload/loose_thorn_base_reload2.png" id="4_rpjll"]
+[ext_resource type="Texture2D" uid="uid://bbew6ex1byyjt" path="res://src/enemies/traps/loose_thorn_base/sprites/reload/loose_thorn_base_reload3.png" id="5_mcay4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slrio"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_mcay4")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bmp6y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rpjll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mcay4")
+}],
+"loop": false,
+"name": &"reload",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mnwni")
+}],
+"loop": false,
+"name": &"void",
+"speed": 0.0
+}]
+
+[node name="LooseThornBase" type="Area2D"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_ivyof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6)
+sprite_frames = SubResource("SpriteFrames_slrio")
+animation = &"idle"
+
+[node name="LooseThornSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
