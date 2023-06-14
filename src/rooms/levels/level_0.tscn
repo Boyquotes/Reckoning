@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjbjsatgm54ip"]
+[gd_scene load_steps=12 format=3 uid="uid://cjbjsatgm54ip"]
 
 [ext_resource type="PackedScene" uid="uid://btdpb2f0b2vv2" path="res://src/rooms/level_default/level.tscn" id="1_x3fwk"]
 [ext_resource type="PackedScene" uid="uid://dhhn808j4ccx1" path="res://src/enemies/dummy/dummy.tscn" id="2_lhug8"]
 [ext_resource type="Texture2D" uid="uid://c0x53rkef23nm" path="res://src/rooms/tutorial/sprites/floor.png" id="2_t0x7s"]
 [ext_resource type="PackedScene" uid="uid://d2wqiyaowlpw" path="res://test_resources/thorns/thorns_test.tscn" id="3_edlq7"]
 [ext_resource type="Texture2D" uid="uid://c166rairftshr" path="res://src/rooms/resources/sprites/floor1/floor1.png" id="4_7rop8"]
+[ext_resource type="PackedScene" uid="uid://dtecvccwbx4m" path="res://src/enemies/traps/throws_spears/throw_spear.tscn" id="6_ako6o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8r5gd"]
 resource_name = "floor"
@@ -507,3 +508,7 @@ layer_0/tile_data = PackedInt32Array(524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 5
 
 [node name="Door" parent="." index="7"]
 position = Vector2(2603, 106)
+
+[node name="ThrowSpear" parent="." index="8" instance=ExtResource("6_ako6o")]
+position = Vector2(143, 121)
+direction = Vector2(0, -1)

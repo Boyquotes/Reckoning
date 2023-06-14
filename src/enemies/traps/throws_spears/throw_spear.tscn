@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtecvccwbx4m"]
+
+[ext_resource type="Script" path="res://src/enemies/traps/throws_spears/throw_spear.gd" id="1_5d3kp"]
+[ext_resource type="Texture2D" uid="uid://us5e8uhpc3jr" path="res://src/enemies/traps/throws_spears/sprites/throws_spears.png" id="1_bdelx"]
+[ext_resource type="Texture2D" uid="uid://dkro3npbomh5q" path="res://icon.svg" id="3_rir5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yq8s5"]
+size = Vector2(16, 16)
+
+[node name="ThrowSpear" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_5d3kp")
+
+[node name="ThrowSpearTexture" type="Sprite2D" parent="."]
+texture = ExtResource("1_bdelx")
+
+[node name="PlayerCheckArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yq8s5")
+
+[node name="SpearSpawn" type="Marker2D" parent="."]
+position = Vector2(3, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("3_rir5d")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
