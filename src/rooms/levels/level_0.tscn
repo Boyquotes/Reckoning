@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c0x53rkef23nm" path="res://src/rooms/tutorial/sprites/floor.png" id="2_t0x7s"]
 [ext_resource type="PackedScene" uid="uid://d2wqiyaowlpw" path="res://test_resources/thorns/thorns_test.tscn" id="3_edlq7"]
 [ext_resource type="Texture2D" uid="uid://c166rairftshr" path="res://src/rooms/resources/sprites/floor1/floor1.png" id="4_7rop8"]
-[ext_resource type="PackedScene" uid="uid://dtecvccwbx4m" path="res://src/enemies/traps/throws_spears/throw_spear.tscn" id="6_ako6o"]
+[ext_resource type="FontFile" uid="uid://c7qetkxirympp" path="res://assets/font/upheaval/upheavtt.ttf" id="6_k8vvd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8r5gd"]
 resource_name = "floor"
@@ -191,6 +191,9 @@ next_level = "res://src/rooms/levels/level_1.tscn"
 [node name="ShakeCamera2D" parent="." index="1"]
 limit_left = 0
 limit_bottom = 144
+
+[node name="Transitions" parent="Hud" index="1"]
+visible = false
 
 [node name="Dummy" parent="Enemies" index="0" instance=ExtResource("2_lhug8")]
 position = Vector2(1854, 116)
@@ -509,6 +512,64 @@ layer_0/tile_data = PackedInt32Array(524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 5
 [node name="Door" parent="." index="7"]
 position = Vector2(2603, 106)
 
-[node name="ThrowSpear" parent="." index="8" instance=ExtResource("6_ako6o")]
-position = Vector2(143, 121)
-direction = Vector2(0, -1)
+[node name="SkinGratis" type="Node2D" parent="Warnings" index="0"]
+
+[node name="ColorRect" type="ColorRect" parent="Warnings/SkinGratis" index="0"]
+offset_left = 784.0
+offset_top = 96.0
+offset_right = 881.0
+offset_bottom = 144.0
+color = Color(0.960784, 0.309804, 0.309804, 0.686275)
+
+[node name="Label" type="Label" parent="Warnings/SkinGratis" index="1"]
+offset_left = 792.0
+offset_top = 93.0
+offset_right = 877.0
+offset_bottom = 119.0
+theme_override_font_sizes/font_size = 15
+text = " Skin grátis"
+
+[node name="SkinGratis2" type="Node2D" parent="Warnings" index="1"]
+position = Vector2(144, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Warnings/SkinGratis2" index="0"]
+offset_left = 784.0
+offset_top = 96.0
+offset_right = 944.0
+offset_bottom = 144.0
+color = Color(0.960784, 0.309804, 0.309804, 0.686275)
+
+[node name="Label" type="Label" parent="Warnings/SkinGratis2" index="1"]
+offset_left = 826.0
+offset_top = 92.0
+offset_right = 911.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 15
+text = " Skin grátis"
+
+[node name="SkinGratis3" type="Node2D" parent="Warnings" index="2"]
+position = Vector2(384, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Warnings/SkinGratis3" index="0"]
+offset_left = 784.0
+offset_top = 96.0
+offset_right = 1025.0
+offset_bottom = 144.0
+color = Color(0.960784, 0.309804, 0.309804, 0.686275)
+
+[node name="Label" type="Label" parent="Warnings/SkinGratis3" index="1"]
+offset_left = 866.0
+offset_top = 91.0
+offset_right = 951.0
+offset_bottom = 117.0
+theme_override_font_sizes/font_size = 15
+text = " Skin grátis"
+
+[node name="Label" type="Label" parent="Warnings" index="3"]
+offset_left = 125.0
+offset_top = 117.0
+offset_right = 165.0
+offset_bottom = 140.0
+theme_override_fonts/font = ExtResource("6_k8vvd")
+theme_override_font_sizes/font_size = 5
+text = "T_JUMP"

@@ -74,6 +74,10 @@ attack={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/languages/languages.pt.translation")
+
 [layer_names]
 
 2d_physics/layer_1="player_hurt"

@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyrvr3tua1jkj"]
+
+[ext_resource type="Script" path="res://src/resources/transitions/transitions.gd" id="1_0f4g3"]
+[ext_resource type="Shader" uid="uid://d2wnovbvrtdtc" path="res://src/resources/transitions/shaders_transition.tres" id="1_2ejrb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4vdl"]
+shader = ExtResource("1_2ejrb")
+shader_parameter/screen_width = 256.0
+shader_parameter/screen_height = 144.0
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/player = Vector2(0.5, 0.5)
+shader_parameter/progress = 1.0
+shader_parameter/pixel_size = 15.0
+shader_parameter/circle_size = 1.5
+shader_parameter/curtains = 1.0
+shader_parameter/type = 0
+
+[sub_resource type="Animation" id="Animation_lx4ks"]
+resource_name = "open"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ukksp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_rot21"]
+resource_name = "close"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_camvq"]
+_data = {
+"RESET": SubResource("Animation_ukksp"),
+"close": SubResource("Animation_rot21"),
+"open": SubResource("Animation_lx4ks")
+}
+
+[node name="Transitions" type="ColorRect"]
+material = SubResource("ShaderMaterial_y4vdl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.168627, 0.290196, 1)
+script = ExtResource("1_0f4g3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_camvq")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

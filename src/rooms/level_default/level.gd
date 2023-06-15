@@ -6,6 +6,7 @@ extends Node2D
 @onready var player = $Player
 @onready var shake_camera = $ShakeCamera2D
 @onready var enemies = $Enemies
+@onready var transitions = $Hud/Transitions
 
 func _ready():
 	player.connect("create_instance_requisition", create_instance_requisitions)
@@ -18,10 +19,18 @@ func _ready():
 	shake_camera.target = player
 	var player_last_health = SaveSystem.load_health()
 	player.set_health(player_last_health)
+	
+	transitions.open()
+	await transitions.animation_finished
+	
 	player.start()
 
 func player_death():
 	await get_tree().create_timer(2).timeout
+	
+	transitions.close()
+	await transitions.animation_finished
+	
 	get_tree().change_scene_to_file(self_level)
 
 func create_instance_requisitions(instance):
@@ -35,6 +44,10 @@ func _completed(_body):
 	if next_level:
 		var ph = player.get_health()
 		SaveSystem.save_health(ph)
+		
+		transitions.close()
+		await transitions.animation_finished
+		
 		get_tree().change_scene_to_file(next_level)
 	else:
 		print("terminou")
