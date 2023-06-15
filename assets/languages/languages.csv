@@ -1,3 +1,5 @@
 keys,pt
 T_JUMP,Espaco
 T_DOUBLE_JUMP,Espaco + Espaco
+T_DOUBLE_JUMP_DASH,Espaco + Espaco + M
+T_ATTACK,K
