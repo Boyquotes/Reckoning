@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjbjsatgm54ip"]
+[gd_scene load_steps=17 format=3 uid="uid://cjbjsatgm54ip"]
 
 [ext_resource type="PackedScene" uid="uid://btdpb2f0b2vv2" path="res://src/rooms/level_default/level.tscn" id="1_x3fwk"]
 [ext_resource type="PackedScene" uid="uid://dhhn808j4ccx1" path="res://src/enemies/dummy/dummy.tscn" id="2_lhug8"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://d2wqiyaowlpw" path="res://test_resources/thorns/thorns_test.tscn" id="3_edlq7"]
 [ext_resource type="Texture2D" uid="uid://c166rairftshr" path="res://src/rooms/resources/sprites/floor1/floor1.png" id="4_7rop8"]
 [ext_resource type="FontFile" uid="uid://c7qetkxirympp" path="res://assets/font/upheaval/upheavtt.ttf" id="6_k8vvd"]
+[ext_resource type="Texture2D" uid="uid://bm8imbfpt3a4q" path="res://design/camadas/camada4.png" id="7_jkdd7"]
+[ext_resource type="Texture2D" uid="uid://chfhi2nrkg8dy" path="res://design/camadas/camada5.png" id="7_nu6q5"]
+[ext_resource type="Texture2D" uid="uid://c6tyoxyg3srg5" path="res://design/camadas/camada3.png" id="8_fal14"]
+[ext_resource type="Texture2D" uid="uid://cl4iwk3aynry3" path="res://design/camadas/camada2.png" id="9_eb8um"]
+[ext_resource type="Texture2D" uid="uid://k32xkddeulsu" path="res://design/camadas/camada1.png" id="10_8j4rg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8r5gd"]
 resource_name = "floor"
@@ -192,6 +197,9 @@ next_level = "res://src/rooms/levels/level_1.tscn"
 limit_left = 0
 limit_right = 2675
 limit_bottom = 144
+
+[node name="Transitions" parent="Hud" index="1"]
+visible = false
 
 [node name="Dummy" parent="Enemies" index="0" instance=ExtResource("2_lhug8")]
 position = Vector2(1854, 116)
@@ -692,3 +700,62 @@ theme_override_font_sizes/font_size = 5
 text = "T_ATTACK"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="9"]
+offset = Vector2(0, -25)
+transform = Transform2D(1, 0, 0, 1, 0, -25)
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_nu6q5")
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="1"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_jkdd7")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" index="2"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_fal14")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" index="3"]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_eb8um")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" index="4"]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_8j4rg")
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground" index="5"]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(256, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer5" index="0"]
+offset_top = -43.0
+offset_right = 256.0
+offset_bottom = 213.0
+color = Color(0.192157, 0.141176, 0.231373, 0.411765)
